@@ -1,0 +1,16 @@
+{
+  "name": "prueba",
+  "version": "1.0.0",
+  "description": "Prueba de admision",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1318.0",
+    "express": "^4.18.2",
+    "jimp": "^0.22.4"
+  }
+}
