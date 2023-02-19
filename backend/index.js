@@ -2,9 +2,12 @@ const express = require("express");
 const Jimp = require("jimp");
 const fs = require('fs');
 const AWS = require('aws-sdk');
+require('dotenv').config()
+require('./data/database')
+
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
 const ID = 'AKIAXBHP4UEJ3MYKBFWJ';
 const SECRET = 'UTvIib8VIJejOLGK2o1gE9rD3TQcFPx9OWiuY12u';
@@ -53,5 +56,5 @@ app.get("/convert", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
