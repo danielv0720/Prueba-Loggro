@@ -6,8 +6,16 @@ require('dotenv').config()
 require('./data/database')
 
 
-const app = express();
 const port = 8000;
+const bodyParser = require('body-parser')
+const multer = require('multer')
+
+const app = express();
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 
 const ID = 'AKIAXBHP4UEJ3MYKBFWJ';
 const SECRET = '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';
@@ -24,19 +32,22 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/convert", (req, res) => {
-  Jimp.read("image1.jpg", (error, file) => {
+app.post("/convert", multer().single('file'), (req, res) => {
+  const file = req.file;
+  Jimp.read(file.buffer, (error, file) => {
     if (error) {
       console.log(error.message);
     } else {
-      file.write("images/new-image.png", () => {
+      const imageName = `image-converted-${Date.now()}.png`
+      const path = `images/${imageName}` 
+      file.write(path, () => {
         // Read content from the file
-        const fileContent = fs.readFileSync("images/new-image.png");
+        const fileContent = fs.readFileSync(path);
       
         // Setting up S3 upload parameters
         const params = {
             Bucket: BUCKET_NAME,
-            Key: 'new-image.png', // File name you want to save as in S3
+            Key: imageName, // File name you want to save as in S3
             Body: fileContent
         };
       
