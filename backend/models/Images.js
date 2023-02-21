@@ -2,12 +2,12 @@
 const mongoose =require('mongoose')
 
 const schema = new mongoose.Schema({
-
-  name: {type: String , required: true} ,
-  photo: {type: String , required: true} ,
-
-
+  imageName: {type: String , required: true} ,
+  url: {type: String, required: true} ,
+  date: { type: Date, required: true },
+  time: {type: Number, required: true},
+  user: {type: String, required: true},
 })
 
-const Images = mongoose.model('images',schema)
+const Images = mongoose.model('images', schema)
 module.exports = Images
